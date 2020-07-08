@@ -27,6 +27,12 @@ int play_note(double note)
   play_note_fraction(note, 1000);
 }
 
+int play_silence(int fraction) {
+  char buf[4410000];
+  memset(buf, 0, sizeof(buf));
+  write(dsp, buf, 1000);
+}
+
 int play_note_fraction(double note, int fraction)
 {
 

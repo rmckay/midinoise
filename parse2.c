@@ -86,11 +86,16 @@ main(int argc, char *argv[])
       printf("Seen command at %d and %d\n", tv.tv_sec, tv.tv_usec);
 
       printf("Start of command byte... %d for chan %d\n", c, chan);
-//      int filter = atoi(argv[2]);
- //     if (chan != filter) {
- //       printf("filtering %d\n", chan);
-//	continue;
- //     }
+
+      // Optional filter channel argument
+      printf("argc is :%d\n", argc);
+      if (argc>2) {
+        int filter = atoi(argv[2]);
+        if (chan != filter) {
+          printf("filtering %d\n", chan);
+  	continue;
+        }
+      }
 
   
       switch (cmd)
@@ -166,6 +171,8 @@ main(int argc, char *argv[])
      if(playing==1)
      {
        play_midi_fraction(note, 1);
+     } else {
+       play_silence(1);
      }
 
    }
