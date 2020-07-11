@@ -48,7 +48,8 @@ main(int argc, char *argv[])
   init_midi_tables();
   init_sound();
 
-  loadmid(argv[1]);
+  int length = loadmid(argv[1]);
+  printf("length: %d\n", length);
   unsigned char *ptr = midi_start;
   printHeader(midi_start);
 
@@ -62,10 +63,10 @@ main(int argc, char *argv[])
   ptr+=121;
 
   unsigned char c;
-  while(1)
+  while(ptr < (midi_start+length))
   {
     c=*(ptr++);
-    printf("ptr = %x val = %x offset = %d\n",ptr, *ptr, (int)(((void *)ptr)-midi_start));
+    printf("ptr = %x endptr = %x val = %x offset = %d\n",ptr,midi_start+length, *ptr, (int)(((void *)ptr)-midi_start));
 
     // track_event = <v_time> + <midi_event> | <meta_event> | <sysex_event>
 
@@ -118,7 +119,7 @@ main(int argc, char *argv[])
                  { 
                    printf("Skipping this note, because it's a mute\n");
                    playing = 0;
-                   break;
+//                   break;
                  }
 
                  //play_midi(note);
@@ -171,6 +172,7 @@ main(int argc, char *argv[])
      if(playing==1)
      {
        play_midi_fraction(note, 1);
+       draw_keyboard_pressed(note);
      } else {
        play_silence(1);
      }

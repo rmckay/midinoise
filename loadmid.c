@@ -21,7 +21,6 @@ int loadmid(const char *filename)
   midi_start = mmap(NULL, (size_t)stat_buf.st_size, PROT_READ, MAP_PRIVATE,
                   fd, 0);
 
-
-  return 0;
+  return stat_buf.st_size;
 
 }
