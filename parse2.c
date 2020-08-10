@@ -7,6 +7,9 @@
 #include "notes.h"
 #include "loadmid.h"
 
+#include <unistd.h>
+#include <string.h>
+
 struct mfhead {
  char head[4];
  long size;
@@ -31,6 +34,43 @@ printHeader(struct mfhead *header)
 
 int last_vtime = 0;
 
+char output_file[1024] = "";
+char input_file[1024] = "";
+int filter_chan = 0;
+
+void 
+parse_options(int argc, char *argv[]) {
+  int opt;
+
+  while ((opt = getopt(argc, argv, "o:")) != -1) {
+    switch(opt) {
+      case 'o':
+        strncpy(output_file, optarg, strlen(optarg));
+        printf("Directing output to %s\n", output_file);
+        break;
+      case 'f':
+        filter_chan = atoi(optopt);
+        printf("Filtering on channel %d\n", filter_chan);
+        break;
+      case '?':
+        printf("Unknown option: %c\n", optopt);
+        break;
+    }
+
+  }
+
+  if (optind < argc) {
+    printf("Setting input file to %s\n", argv[optind]);
+    strncpy(input_file, argv[optind], strlen(argv[optind]));
+  }
+
+
+  for (; optind < argc; optind++) {
+    printf("Extra arguments: %s\n", argv[optind]);
+  }
+
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -45,10 +85,19 @@ main(int argc, char *argv[])
 
   struct timeval tv;
 
-  init_midi_tables();
-  init_sound();
+  parse_options(argc,argv);
 
-  int length = loadmid(argv[1]);
+  init_midi_tables();
+
+  if (strlen(output_file)>0) {
+    printf("Directing output to %s\n", output_file);
+    init_pcm(output_file);
+  } else { 
+    printf("Using sound card output\n");
+    init_sound();
+  }
+
+  int length = loadmid(input_file);
   printf("length: %d\n", length);
   unsigned char *ptr = midi_start;
   printHeader(midi_start);
@@ -90,9 +139,8 @@ main(int argc, char *argv[])
 
       // Optional filter channel argument
       printf("argc is :%d\n", argc);
-      if (argc>2) {
-        int filter = atoi(argv[2]);
-        if (chan != filter) {
+      if (filter_chan!=0) {
+        if (chan != filter_chan) {
           printf("filtering %d\n", chan);
   	continue;
         }

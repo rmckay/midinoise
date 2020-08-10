@@ -50,14 +50,20 @@ int play_note_fraction(double note, int fraction)
 
   printf("rep = %f for freq = %f\n", rep, freq);
 
-  for (x=0;x<65536;x+=(65536.0/rep))
-  {
+//  for (x=0;x<65536;x+=(65536.0/rep))
+//  {
 //    buf[y++]=2^x-1;
     buf[y++]=x/256;
 //      int prim = sin(x/1000)*1000;
 //      prim+=rand()*100;
 //      buf[y++]=sin(prim/1)*1000;
+//  }
+
+  for (x=0;x<65536;x+=(65536.0/rep))
+  {
+    buf[y++]=sin(freq * x) * 256;
   }
+
 
 /*
   for (x=0;x<8000;x++) {

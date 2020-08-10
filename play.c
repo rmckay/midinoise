@@ -3,10 +3,15 @@
 #include "play.h"
 #include "notes.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+
 int init_sound()
 {
 
-  dsp = open("/dev/dsp", 0666);
+  dsp = open("/dev/dsp", O_RDWR);
 
   int chan = 1;
   int rate = 44100;
@@ -19,6 +24,14 @@ int init_sound()
   ioctl(dsp, SOUND_PCM_WRITE_RATE, &rate); // 8000 samples/sec
 
 // oh yea, i'm just gonna assume all that worked 'cause I'm not a pussy.
+
+}
+
+int init_pcm(char *filename)
+{
+
+  printf("Creating %s\n", filename);
+  dsp = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
 
 }
 
@@ -49,13 +62,46 @@ int play_note_fraction(double note, int fraction)
 
   printf("rep = %f for freq = %f\n", rep, freq);
 
+//  for (x=0;x<65536;x+=(65536.0/rep))
+//  {
+//    buf[y++]=2^x-1;
+//  }
+  
+  // sine wave
   for (x=0;x<65536;x+=(65536.0/rep))
   {
-    buf[y++]=2^x-1;
+    buf[y++]=(25600*sin(freq + x));
   }
+
+    // square wave
+//  for (x=0;x<65536;x+=(65536.0/rep))
+//  {
+//    buf[y++]=(25600*sin(freq + x));
+//  }
+
+  // square wave
+//  for (x=0;x<44100;x++)
+////  {
+//    buf[y++]=(128*sin(freq * x)) >= 0 ? 0xFF : 0x00;
+//    buf[y++]=(128*sin(freq + x));
+
+
+///    short sample =(12800*sin(freq + x)) >= 0 ? 0xFFFF : 0x0000;
+//      buf[y++]=sample /256;
+
+//    short sample = 128*sin(freq +x);
+
+//    buf[y++]=(char *)sample;
+//    buf[y++]=(char *)sample;
+//    buf[y++]=0x00;
+
+
+  //}
+
 
   int z= 0;
     for (z=0;z<(freq/fraction);z++)
+  //  if(1==1)
     {
       write(dsp,buf, y);
     }
