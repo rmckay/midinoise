@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <math.h>
 
 int init_sound()
 {
@@ -43,13 +44,50 @@ int play_note(double note)
 int play_silence(int fraction) {
   char buf[4410000];
   memset(buf, 0, sizeof(buf));
-  write(dsp, buf, 1000);
+  write(dsp, buf, 441*2);
 }
 
-int play_note_fraction(double note, int fraction)
+float pure_tone(float time, float freq_hz) {
+  return sin(time * freq_hz * 2 / 44100);
+}
+
+
+int play_note_fraction(double note, int fraction) {
+ 
+ unsigned short bbuf[44100];
+ signed short min = 32768;
+ signed short max = 0;
+
+ for (float i=0;i<44100/2;i+=1) {
+   float fsample;
+   if (i<3000) {
+    fsample = pure_tone(i, note) * i * 10;
+   } else {
+    fsample = pure_tone(i, note) * 32768;
+   }
+
+   signed short sample = (signed short)(fsample - 32768);
+
+   // convert sine wave to square wave
+  // sample = ((((sample > 0) - (sample < 0 ))+1) * 65530) - 32768;
+
+   printf("sample: %d\n", sample);
+
+   if (sample>max) { max = sample; }
+   if (sample<min) { min = sample; }
+
+   bbuf[(int)i]=sample;
+
+ }
+ printf("min: %d, max: %d\n", min, max);
+ write(dsp, &bbuf, sizeof(bbuf)/2);
+
+}
+int x_play_note_fraction(double note, int fraction)
 {
 
   char buf[4410000];
+  signed short bbuf[441000];
   int rate = 44100;
   int x=0;
   int c=0;
@@ -68,10 +106,10 @@ int play_note_fraction(double note, int fraction)
 //  }
   
   // sine wave
-  for (x=0;x<65536;x+=(65536.0/rep))
-  {
-    buf[y++]=(25600*sin(freq + x));
-  }
+//  for (x=0;x<65536;x+=(65536.0/rep))
+//  {
+//    buf[y++]=(25600*sin(freq + x));
+//  }
 
     // square wave
 //  for (x=0;x<65536;x+=(65536.0/rep))
@@ -80,11 +118,11 @@ int play_note_fraction(double note, int fraction)
 //  }
 
   // square wave
-//  for (x=0;x<44100;x++)
-////  {
+  for (x=0;x<44100;x++)
+  {
 //    buf[y++]=(128*sin(freq * x)) >= 0 ? 0xFF : 0x00;
-//    buf[y++]=(128*sin(freq + x));
-
+//    bbuf[x]=(12800*sin(freq * x)) >= 0 ? 0xFFFF : 0x0000;
+    bbuf[x]=32768*sin(freq * x * 2 * M_PI);
 
 ///    short sample =(12800*sin(freq + x)) >= 0 ? 0xFFFF : 0x0000;
 //      buf[y++]=sample /256;
@@ -96,15 +134,17 @@ int play_note_fraction(double note, int fraction)
 //    buf[y++]=0x00;
 
 
-  //}
+  }
+
+  write(dsp,bbuf,44100);
 
 
-  int z= 0;
-    for (z=0;z<(freq/fraction);z++)
-  //  if(1==1)
-    {
-      write(dsp,buf, y);
-    }
+//  int z= 0;
+  //  for (z=0;z<(freq/fraction);z++)
+ //   if(1==1)
+  //  {
+   //   write(dsp,buf, y);
+  //  }
 
 }
 
