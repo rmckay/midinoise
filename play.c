@@ -61,7 +61,7 @@ int play_note_fraction(double note, int fraction) {
  for (float i=0;i<44100/2;i+=1) {
    float fsample;
    if (i<3000) {
-    fsample = pure_tone(i, note) * i * 10;
+    fsample = pure_tone(i, note) * i * 5;
    } else {
     fsample = pure_tone(i, note) * 32768;
    }
@@ -70,8 +70,6 @@ int play_note_fraction(double note, int fraction) {
 
    // convert sine wave to square wave
   // sample = ((((sample > 0) - (sample < 0 ))+1) * 65530) - 32768;
-
-   printf("sample: %d\n", sample);
 
    if (sample>max) { max = sample; }
    if (sample<min) { min = sample; }
