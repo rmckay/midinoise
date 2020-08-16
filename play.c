@@ -51,19 +51,27 @@ float pure_tone(float time, float freq_hz) {
   return sin(time * freq_hz * 2 / 44100);
 }
 
+// https://en.wikipedia.org/wiki/Phase_modulation
+float modulated_tone(float time, float freq_hz, float mod_hz, float amt) {
+  return sin((time * freq_hz * 2 / 44100) + (amt * M_PI/2 * sin(mod_hz * time) ));
+}
+
 
 int play_note_fraction(double note, int fraction) {
  
  unsigned short bbuf[44100];
  signed short min = 32768;
  signed short max = 0;
-
+ float decay = 1;
  for (float i=0;i<44100/2;i+=1) {
    float fsample;
    if (i<3000) {
-    fsample = pure_tone(i, note) * i * 5;
+//    fsample = pure_tone(i, note) * i * 5;
+    fsample = modulated_tone(i, note, 300, i/3000) * i * 5;
    } else {
-    fsample = pure_tone(i, note) * 32768;
+//    fsample = pure_tone(i, note) * 32768;
+    fsample = modulated_tone(i, note, 300, decay) * 32768;
+    decay-=0.00002;
    }
 
    signed short sample = (signed short)(fsample - 32768);
