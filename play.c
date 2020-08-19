@@ -38,6 +38,8 @@ int init_pcm(char *filename)
 
 int play_note(double note)
 {
+
+  printf("Playing note: %d\n", note);
   play_note_fraction(note, 1000);
 }
 
@@ -63,10 +65,12 @@ int play_note_fraction(double note, int fraction) {
  signed short min = 32768;
  signed short max = 0;
  float decay = 1;
+ printf("Playing note fraction: %f\n", note);
  for (float i=0;i<44100/2;i+=1) {
    float fsample;
    if (i<3000) {
 //    fsample = pure_tone(i, note) * i * 5;
+//    fsample = modulated_tone(i, note, 300, i/3000) * i * 5;
     fsample = modulated_tone(i, note, 300, i/3000) * i * 5;
    } else {
 //    fsample = pure_tone(i, note) * 32768;
@@ -86,7 +90,7 @@ int play_note_fraction(double note, int fraction) {
 
  }
  printf("min: %d, max: %d\n", min, max);
- write(dsp, &bbuf, sizeof(bbuf)/2);
+ write(dsp, &bbuf, sizeof(bbuf)/4);
 
 }
 int x_play_note_fraction(double note, int fraction)

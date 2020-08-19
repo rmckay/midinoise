@@ -42,14 +42,14 @@ void
 parse_options(int argc, char *argv[]) {
   int opt;
 
-  while ((opt = getopt(argc, argv, "o:")) != -1) {
+  while ((opt = getopt(argc, argv, "o:f:")) != -1) {
     switch(opt) {
       case 'o':
         strncpy(output_file, optarg, strlen(optarg));
         printf("Directing output to %s\n", output_file);
         break;
       case 'f':
-        filter_chan = atoi(optopt);
+        filter_chan = atoi(optarg);
         printf("Filtering on channel %d\n", filter_chan);
         break;
       case '?':

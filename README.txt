@@ -13,3 +13,5 @@ eg:
 
 padsp ./player midi/daisy.mid 
 
+source of midis:
+https://www.8notes.com/flute/all/?page=60
