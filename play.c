@@ -68,15 +68,15 @@ int play_note_fraction(double note, int fraction) {
  printf("Playing note fraction: %f\n", note);
  for (float i=0;i<44100/2;i+=1) {
    float fsample;
-   if (i<3000) {
+//   if (i<3000) {
 //    fsample = pure_tone(i, note) * i * 5;
 //    fsample = modulated_tone(i, note, 300, i/3000) * i * 5;
-    fsample = modulated_tone(i, note, 300, i/3000) * i * 5;
-   } else {
+//    fsample = modulated_tone(i, note, 900, i/3000) * i * 5;
+//   } else {
 //    fsample = pure_tone(i, note) * 32768;
     fsample = modulated_tone(i, note, 300, decay) * 32768;
-    decay-=0.00002;
-   }
+//    decay-=0.00002;
+//   }
 
    signed short sample = (signed short)(fsample - 32768);
 

@@ -199,22 +199,22 @@ main(int argc, char *argv[])
    printf("time is: %d sec and %d microsec\n", tv.tv_sec, tv.tv_usec);
 
 
-   while (1)
-   {
-     gettimeofday(&tv, NULL);
-
-     time_t delta_sec = tv.tv_sec - now_sec;
-     suseconds_t delta_usec = tv.tv_usec - now_usec;
-
-     long long int delta_total = (delta_sec*1000000) + delta_usec;
-
-     if (delta_total < (last_vtime*5))
-     {
-       printf("Sleeping... %lld < %lld\n", delta_total, (last_vtime*5));
+//   while (1)
+//   {
+//     gettimeofday(&tv, NULL);
+//
+//     time_t delta_sec = tv.tv_sec - now_sec;
+//     suseconds_t delta_usec = tv.tv_usec - now_usec;
+//
+//     long long int delta_total = (delta_sec*1000000) + delta_usec;
+//
+//     if (delta_total < (last_vtime*5))
+//     {
+//       printf("Sleeping... %lld < %lld\n", delta_total, (last_vtime*5));
 //       usleep(50000);
-     }
-     else
-       break;
+//     }
+//     else
+//       break;
 
      /* Play some notes? */
      if(playing==1)
@@ -225,7 +225,7 @@ main(int argc, char *argv[])
        play_silence(1);
      }
 
-   }
+ //  }
 
 
   
