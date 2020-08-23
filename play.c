@@ -8,6 +8,7 @@
 #include <fcntl.h>
 
 #include <math.h>
+#include "popen.h"
 
 int init_sound()
 {
@@ -26,6 +27,14 @@ int init_sound()
 
 // oh yea, i'm just gonna assume all that worked 'cause I'm not a pussy.
 
+}
+
+int init_sound_sox()
+{
+  pfds control;
+  control = pipe_open("sox -q -traw -r44100 -b16 -e signed-integer --input-buffer 24 - -d");
+//  control = pipe_open("sox -q -traw -r44100 -b16 -e signed-integer - -d");
+  dsp = control.input;
 }
 
 int init_pcm(char *filename)

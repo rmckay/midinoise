@@ -4,15 +4,18 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
+#include "popen.h"
 //extern char **environ; // _GNU_SOURCE defines this
 
+/*
 typedef struct {
   int input;
   int output;
   int pid;
 } pfds;
+*/
 
-pfds pipe_open(char *cmd[]) {
+pfds pipe_open(char *command) {
 
   int input_fds[2];
   int output_fds[2];
@@ -27,12 +30,13 @@ pfds pipe_open(char *cmd[]) {
     exit(-1);
   }
 
+  char *cmd[] = { "/bin/sh", "-c", command, '\0' };
   // pipe side
   int pid=fork();
   if (pid==0) {
 
 
-    printf("Starting pipe: %s\n", cmd[0]);
+    printf("Starting pipe: %s\n", command);
     close(0);
     close(1);
     close(2);
@@ -62,9 +66,7 @@ pfds pipe_open(char *cmd[]) {
 
 int main4(int argc, char *argv[]) {
 
-  char *cmd[] = { "/bin/sleep", "10000", '\0' };
-
-  pfds c = pipe_open( cmd );
+  pfds c = pipe_open( "/bin/sleep 10000" );
 
   char buf[1024];
   while (read(c.input, buf, 1024)>0) {
@@ -74,11 +76,9 @@ int main4(int argc, char *argv[]) {
   
 }
 
-int main2(int argc, char *argv[]) {
+int main33(int argc, char *argv[]) {
 
-  char *cmd[] = { "/bin/echo", "hello", '\0' };
-
-  pfds c = pipe_open( cmd );
+  pfds c = pipe_open( "/bin/echo hello" );
 
   char buf[1024];
 
@@ -89,10 +89,9 @@ int main2(int argc, char *argv[]) {
 }
 
 
-int main(int argc, char *argv[]) {
+int mainxx(int argc, char *argv[]) {
 
-  char *cmd[] = { "/bin/cat", '\0' };
-  pfds c = pipe_open( cmd );
+  pfds c = pipe_open( "/bin/cat" );
 
   char *string = "Hello, World\n";
   write(c.input, string, strlen(string));
@@ -104,7 +103,5 @@ int main(int argc, char *argv[]) {
     count = read(c.output, buf, 10);
     write(1, buf, count);
   }
-
-  wait();
 
 }

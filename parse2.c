@@ -94,7 +94,7 @@ main(int argc, char *argv[])
     init_pcm(output_file);
   } else { 
     printf("Using sound card output\n");
-    init_sound();
+    init_sound_sox();
   }
 
   int length = loadmid(input_file);
