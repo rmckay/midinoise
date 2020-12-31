@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="midinoise"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/rm/IdeaProjects/midinoise/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/rm/IdeaProjects/midinoise/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/rm/IdeaProjects/midinoise/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="midinoise">
+				<Option output="/home/rm/IdeaProjects/midinoise/cmake-build-debug/midinoise" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/rm/IdeaProjects/midinoise/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/rm/IdeaProjects/midinoise/."/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 midinoise"/>
+					<CompileFile command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="midinoise/fast">
+				<Option output="/home/rm/IdeaProjects/midinoise/cmake-build-debug/midinoise" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/rm/IdeaProjects/midinoise/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/rm/IdeaProjects/midinoise/."/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 midinoise/fast"/>
+					<CompileFile command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j20 -f &quot;/home/rm/IdeaProjects/midinoise/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/keyboard.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/loadmid.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/loadmid.h">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/notes.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/notes.h">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/parse2.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/piano.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/play.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/play.h">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/play2.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/popen.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/popen.h">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/xclient.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/xkeypress.c">
+			<Option target="midinoise"/>
+		</Unit>
+		<Unit filename="/home/rm/IdeaProjects/midinoise/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
