@@ -20,8 +20,8 @@ int x=0;
 int main(int argc, char argv[]) {
 
   init_midi_tables();
-  //init_sound();
-  init_sound_sox();
+  init_sound();
+  //init_sound_sox();
 
   draw_keyboard();
 

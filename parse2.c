@@ -94,7 +94,8 @@ main(int argc, char *argv[])
     init_pcm(output_file);
   } else { 
     printf("Using sound card output\n");
-    init_sound_sox();
+//    init_sound_sox(); 
+    init_sound();
   }
 
   int length = loadmid(input_file);
@@ -112,6 +113,7 @@ main(int argc, char *argv[])
   ptr+=121;
 
   unsigned char c;
+  int timepos = 0;
   while(ptr < (midi_start+length))
   {
     c=*(ptr++);
@@ -122,7 +124,8 @@ main(int argc, char *argv[])
     // so.. first we read the v_time.
 
     int deltat = parse_vtime(&ptr);
-    printf("Delta time parsed: %d\n", deltat);
+    timepos += deltat;
+    printf("Delta time parsed: %d %d\n", deltat, timepos);
 
     if (c >= 128)
     {
@@ -198,34 +201,30 @@ main(int argc, char *argv[])
    
    printf("time is: %d sec and %d microsec\n", tv.tv_sec, tv.tv_usec);
 
+   draw_keyboard_pressed(note);
+   long long int delta_total = 0;
+   do
+   {
+     gettimeofday(&tv, NULL);
 
-//   while (1)
-//   {
-//     gettimeofday(&tv, NULL);
-//
-//     time_t delta_sec = tv.tv_sec - now_sec;
-//     suseconds_t delta_usec = tv.tv_usec - now_usec;
-//
-//     long long int delta_total = (delta_sec*1000000) + delta_usec;
-//
-//     if (delta_total < (last_vtime*5))
-//     {
-//       printf("Sleeping... %lld < %lld\n", delta_total, (last_vtime*5));
-//       usleep(50000);
-//     }
-//     else
-//       break;
+     time_t delta_sec = tv.tv_sec - now_sec;
+     suseconds_t delta_usec = tv.tv_usec - now_usec;
+
+     delta_total = (delta_sec*1000000) + delta_usec;
+
 
      /* Play some notes? */
      if(playing==1)
      {
+       printf("Still playing..\n");
        play_midi_fraction(note, 1);
-       draw_keyboard_pressed(note);
      } else {
-       play_silence(1);
+   //    play_silence(1);
+         usleep(10);
      }
 
- //  }
+     printf("delta_total: %d, timepos: %d\n", delta_total, timepos);
+   } while (delta_total < timepos);
 
 
   
