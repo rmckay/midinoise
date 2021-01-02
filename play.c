@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <linux/soundcard.h>
+#include <X11/Xlib.h>
 #include "play.h"
 #include "notes.h"
 
@@ -31,6 +32,40 @@ int play_silence(int fraction) {
   char buf[4410000];
   memset(buf, 0, sizeof(buf));
   write(dsp, buf, 1000);
+}
+
+int play_notes(char *playing) {
+
+  char buf[4410000];
+  int rate = 44100;
+  int x=0;
+  int c=0;
+  char by;
+  int y=0;
+  int fraction = 80; // just cause
+
+  for (int i=0;i<128;i++) {
+    int np = playing[i];
+    if (np!=False) {
+      double freq = np / 2;
+      double rep = (rate / freq);
+      y = 0;
+      for (x = 0; x < 65536; x += (65536.0 / rep)) {
+        buf[y++] = 2 ^ x - 1;
+      }
+    }
+
+  }
+
+
+
+  int z= 0;
+  for (z=0;z<(rate/fraction);z++)
+  {
+    write(dsp,buf, y);
+  }
+
+
 }
 
 int play_note_fraction(double note, int fraction)

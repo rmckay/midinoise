@@ -34,6 +34,43 @@ int play_silence(int fraction) {
   write(dsp, buf, 1000);
 }
 
+int play_notes(char playing[]) {
+
+  char buf[4410000] = {0};
+  int rate = 44100;
+  int x=0;
+  int c=0;
+  char by;
+  int y=0;
+  int fraction = 100; // just cause
+
+  for (int i=0;i<128;i++) {
+    int np = playing[i];
+    if (np!=0) {
+      double freq = notes[i] / 2;
+      double rep = (rate / freq);
+      y = 0;
+      for (x=0;x<65536;x+=(65536.0/rep))
+      {
+        buf[y]=(buf[y]+(sin(freq * x) * 128))/2;
+        y++;
+      }
+    }
+
+  }
+
+
+
+  int z= 0;
+  for (z=0;z<2;z++)
+  {
+    write(dsp,buf, y);
+  }
+
+}
+
+
+
 int play_note_fraction(double note, int fraction)
 {
 

@@ -13,9 +13,20 @@
 #include "notes.h"
 #include "play.h"
 
+
+
 Display *dis;
 Window win;
 XEvent report;
+
+char playing[129] = {0};
+
+int print_playing() {
+	for(int i=0;i<128;i++) {
+		printf("%d", playing[i]);
+	}
+	printf("\n");
+}
 
 int main ()
 {
@@ -31,6 +42,7 @@ int main ()
     // grabbing the pointer fucks thigns up
 //    XGrabPointer(dis, RootWindow(dis, 0), False, ButtonPressMask, GrabModeAsync,
 //                 GrabModeAsync, None, None, CurrentTime);
+//
 
 
     XSelectInput (dis, win, KeyPressMask | KeyReleaseMask | ButtonReleaseMask );
@@ -110,59 +122,69 @@ int main ()
 
     //XDrawRectangle(dis, win, gctx, 0, 0, 50, 50);
 
-    while (1)
+    while(1)
     {
         //XDrawPoint(dis, win, gctx, 5, 5);
-        XNextEvent (dis, &report);
-        switch (report.type)
-        {
-            case ButtonRelease: {
-                printf("Button released at %d, %d", report.xbutton.x, report.xbutton.y);
-                break;
-            }
-            case KeyPress: {
-
-                int x,y = 0;
-                int wx,wy = 0;
-                unsigned int mask = 0;
-                Window root,child;
-                XQueryPointer(dis, win, &root, &child, &x, &y, &wx, &wy, &mask); //<--four
-                long key = XLookupKeysym(&report.xkey, 0);
-                char note = key_to_note(key);
-                note+=58;
-                play_midi_fraction(note, 2);
-                printf("key: %c -- x,y=%d,%d\n", key, wx,wy);
-                fprintf(stdout, "key #%ld was pressed.\n",
-                        (long) XLookupKeysym(&report.xkey, 0));
-                break;
-            }
-            case KeyRelease:
-            {
-                unsigned short is_retriggered = 0;
-
-                if (XEventsQueued(dis, QueuedAfterReading))
-                {
-                    XEvent nev;
-                    XPeekEvent(dis, &nev);
-
-                    if (nev.type == KeyPress && nev.xkey.time == report.xkey.time &&
-                        nev.xkey.keycode == report.xkey.keycode)
-                    {
-                        fprintf (stdout, "key #%ld was retriggered.\n",
-                                 (long) XLookupKeysym (&nev.xkey, 0));
-
-                        // delete retriggered KeyPress event
-                        XNextEvent (dis, &report);
-                        is_retriggered = 1;
+//        XNextEvent (dis, &report);
+        for (int n=0;n<50;n++) {
+            if (XCheckMaskEvent(dis, -1, &report)) {
+                switch (report.type) {
+                    case ButtonRelease: {
+                        printf("Button released at %d, %d", report.xbutton.x, report.xbutton.y);
+                        break;
                     }
-                }
+                    case KeyPress: {
 
-                if (!is_retriggered)
-                    fprintf (stdout, "key #%ld was released.\n",
-                             (long) XLookupKeysym (&report.xkey, 0));
+                        int x, y = 0;
+                        int wx, wy = 0;
+                        unsigned int mask = 0;
+                        Window root, child;
+                        XQueryPointer(dis, win, &root, &child, &x, &y, &wx, &wy, &mask); //<--four
+                        long key = XLookupKeysym(&report.xkey, 0);
+                        char note = key_to_note(key);
+                        note += 58;
+                        playing[note] = True;
+                        //play_midi_fraction(note, 2);
+                        play_notes(&playing);
+                        printf("key: %c -- x,y=%d,%d\n", key, wx, wy);
+                        fprintf(stdout, "key #%ld was pressed.\n",
+                                (long) XLookupKeysym(&report.xkey, 0));
+                        break;
+                    }
+                    case KeyRelease: {
+                        unsigned short is_retriggered = 0;
+
+                        if (XEventsQueued(dis, QueuedAfterReading)) {
+                            XEvent nev;
+                            XPeekEvent(dis, &nev);
+
+                            if (nev.type == KeyPress && nev.xkey.time == report.xkey.time &&
+                                nev.xkey.keycode == report.xkey.keycode) {
+                                fprintf(stdout, "key #%ld was retriggered.\n",
+                                        (long) XLookupKeysym(&nev.xkey, 0));
+
+                                // delete retriggered KeyPress event
+                                XNextEvent(dis, &report);
+                                is_retriggered = 1;
+                            }
+                        }
+
+                        if (!is_retriggered) {
+                            fprintf(stdout, "key #%ld was released.\n",
+                                    (long) XLookupKeysym(&report.xkey, 0));
+                            long key = XLookupKeysym(&report.xkey, 0);
+                            char note = key_to_note(key);
+                            note += 58;
+                            playing[note] = False;
+                        }
+                    }
+                        break;
+                }
             }
-                break;
         }
+        //print_playing();
+        play_notes(&playing);
+
     }
 
     return (0);

@@ -14,5 +14,5 @@ xclient: xclient.o
 xkeypress: xkeypress.o
 	$(CC) -o xkeypress xkeypress.o -lX11
 
-xpiano: xpiano.o keyboard.o notes.o play.o popen.o
-	$(CC) -o xpiano xpiano.o keyboard.o notes.o play.o popen.o -lX11 -lm
+xpiano: xpiano.o keyboard.o notes.o play2.o popen.o
+	$(CC) -o xpiano xpiano.o keyboard.o notes.o play2.o popen.o -lX11 -lm
