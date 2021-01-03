@@ -3,6 +3,13 @@
 #include <math.h>
 #include "play.h"
 #include "notes.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <string.h>
+#include <unistd.h>
+
 
 int init_sound()
 {
@@ -42,17 +49,23 @@ int play_notes(char playing[]) {
   int c=0;
   char by;
   int y=0;
-  int fraction = 100; // just cause
+  //int fraction = 100; // just cause
 
+  int first=1;
   for (int i=0;i<128;i++) {
     int np = playing[i];
     if (np!=0) {
-      double freq = notes[i] / 2;
+      double freq = notes[i];
       double rep = (rate / freq);
       y = 0;
       for (x=0;x<65536;x+=(65536.0/rep))
       {
-        buf[y]=(buf[y]+(sin(freq * x) * 128))/2;
+        if (first) {
+          buf[y]=sin(freq * x) * 256;
+          first=0;
+        } else {
+          buf[y] = (buf[y] + (sin(freq * x) * 256)) / 2;
+        }
         y++;
       }
     }

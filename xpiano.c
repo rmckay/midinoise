@@ -18,6 +18,10 @@
 Display *dis;
 Window win;
 XEvent report;
+XColor red, brown, blue, yellow, green;
+
+XColor xcolour;
+
 
 char playing[129] = {0};
 
@@ -26,6 +30,55 @@ int print_playing() {
 		printf("%d", playing[i]);
 	}
 	printf("\n");
+}
+
+
+// Draw the keyboard with any keys pressed
+int draw_xkeyboard(Display *dis, GC gctx, char playing[]) {
+
+    int screen = DefaultScreen(dis);
+
+    char whitekeys[] = "QWERTYUIOPZXCVBNMXXXXXXXXXXXXXXXX";
+    int whiteskip[] = { 0, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 10, 11, 12 };
+    char *w = &whitekeys[0];
+    for(int i=0;i<17;i++) {
+        int offset = i*25;
+        if (playing[i+whiteskip[i]+58]!=0) {
+            XSetForeground(dis, gctx, xcolour.pixel);
+        } else {
+            XSetForeground(dis, gctx, WhitePixel(dis, screen));
+        }
+        XFillRectangle(dis, win, gctx, offset, 0, 24, 100);
+        XSetForeground(dis, gctx, BlackPixel(dis, screen));
+        char buf[3] = {0};
+        strncpy(buf, (w++), 1);
+        XDrawString (dis, win, gctx, offset + 10, 80, buf, 1);
+    }
+
+
+    char blackkeys[] = "2356790SDFHJ";
+    int blackskip[] = { 1, 2, 0, 3, 4, 5, 0, 6, 7, 0, 8, 9, 10, 0, 11, 12};
+    char *c = &blackkeys[0];
+    for(int i=0;i<16;i++) {
+        int pos = i%7;
+        int offset = i*25;
+        if ((pos!=2)&&(pos!=6))
+        {
+            if (playing[i+blackskip[i%16]+58]!=0) {
+                XSetForeground(dis, gctx, xcolour.pixel);
+            } else {
+                XSetForeground(dis, gctx, BlackPixel(dis, screen));
+            }
+            XFillRectangle(dis, win, gctx, offset + 18, 0, 12, 60);
+            XSetForeground(dis, gctx, WhitePixel(dis, screen));
+            char buf[3] = {0};
+            strncpy(buf, (c++), 1);
+            //sprintf(buf, "%d", pos);
+            XDrawString (dis, win, gctx, offset + 21, 20, buf, 1);
+        }
+    }
+
+
 }
 
 int main ()
@@ -64,6 +117,12 @@ int main ()
     XAllocNamedColor(dis, screen_colormap, "#ff0000", &red, &red);
     int screen = DefaultScreen(dis);
 
+    // I guess XParseColor will work here
+    xcolour.red = 32000; xcolour.green = 65000; xcolour.blue = 32000;
+    xcolour.flags = DoRed | DoGreen | DoBlue;
+    XAllocColor(dis, screen_colormap, &xcolour);
+
+
     GC gctx = XCreateGC(dis, win, 0, &gcv);
     XSetFillStyle(dis, gctx, FillSolid);
 
@@ -74,38 +133,38 @@ int main ()
 
     //XDrawPoint(dis, win, gctx, 5, 5);
 
-    char whitekeys[] = "QWERTYUIOPZXCVBNMXXXXXXXXXXXXXXXX";
-    char *w = &whitekeys[0];
-    for(int i=0;i<17;i++) {
-        int offset = i*25;
-        XSetForeground(dis, gctx, WhitePixel(dis, screen));
-        XFillRectangle(dis, win, gctx, offset, 0, 24, 100);
-        XSetForeground(dis, gctx, BlackPixel(dis, screen));
-        char buf[3] = {0};
-        strncpy(buf, (w++), 1);
-        XDrawString (dis, win, gctx, offset + 10, 80, buf, 1);
-    }
+//    char whitekeys[] = "QWERTYUIOPZXCVBNMXXXXXXXXXXXXXXXX";
+//    char *w = &whitekeys[0];
+//    for(int i=0;i<17;i++) {
+//        int offset = i*25;
+//        XSetForeground(dis, gctx, WhitePixel(dis, screen));
+//        XFillRectangle(dis, win, gctx, offset, 0, 24, 100);
+//        XSetForeground(dis, gctx, BlackPixel(dis, screen));
+//        char buf[3] = {0};
+//        strncpy(buf, (w++), 1);
+//        XDrawString (dis, win, gctx, offset + 10, 80, buf, 1);
+//    }
+//
+//
+//    char blackkeys[] = "2356790SDFHJ";
+//    char *c = &blackkeys[0];
+//    for(int i=0;i<16;i++) {
+//        int pos = i%7;
+//        int offset = i*25;
+//        if ((pos!=2)&&(pos!=6))
+//        {
+//            XSetForeground(dis, gctx, BlackPixel(dis, screen));
+//            XFillRectangle(dis, win, gctx, offset + 18, 0, 12, 60);
+//            XSetForeground(dis, gctx, WhitePixel(dis, screen));
+//            char buf[3] = {0};
+//            strncpy(buf, (c++), 1);
+//            //sprintf(buf, "%d", pos);
+//            XDrawString (dis, win, gctx, offset + 21, 20, buf, 1);
+//        }
+//    }
 
 
-    char blackkeys[] = "2356790SDFHJ";
-    char *c = &blackkeys[0];
-    for(int i=0;i<16;i++) {
-        int pos = i%7;
-        int offset = i*25;
-        if ((pos!=2)&&(pos!=6))
-        {
-            XSetForeground(dis, gctx, BlackPixel(dis, screen));
-            XFillRectangle(dis, win, gctx, offset + 18, 0, 12, 60);
-            XSetForeground(dis, gctx, WhitePixel(dis, screen));
-            char buf[3] = {0};
-            strncpy(buf, (c++), 1);
-            //sprintf(buf, "%d", pos);
-            XDrawString (dis, win, gctx, offset + 21, 20, buf, 1);
-        }
-    }
-
-
-
+    draw_xkeyboard(dis, gctx, playing);
 
 
 
@@ -183,6 +242,7 @@ int main ()
             }
         }
         //print_playing();
+        draw_xkeyboard(dis, gctx, playing);
         play_notes(&playing);
 
     }

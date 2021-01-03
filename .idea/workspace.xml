@@ -13,10 +13,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9868149-da8b-4bf5-817c-922a900a65e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/play.c" beforeDir="false" afterPath="$PROJECT_DIR$/play.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/play.h" beforeDir="false" afterPath="$PROJECT_DIR$/play.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/play.o" beforeDir="false" afterPath="$PROJECT_DIR$/play.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/play2.c" beforeDir="false" afterPath="$PROJECT_DIR$/play2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xpiano" beforeDir="false" afterPath="$PROJECT_DIR$/xpiano" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xpiano.c" beforeDir="false" afterPath="$PROJECT_DIR$/xpiano.c" afterDir="false" />
@@ -44,14 +40,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xpiano.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="xpiano.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xpiano.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="175" column="57" lean-forward="true" selection-start-line="175" selection-start-column="57" selection-end-line="175" selection-end-column="57" />
+            <state relative-caret-position="374">
+              <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
               <folding>
                 <element signature="e#37#55#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notes.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/notes.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Xlib.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/include/X11/Xlib.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="414" column="2" selection-start-line="414" selection-start-column="2" selection-end-line="414" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -77,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="play2.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="play2.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/play2.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="64" column="14" selection-start-line="64" selection-start-column="14" selection-end-line="64" selection-end-column="14" />
+            <state relative-caret-position="441">
+              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -92,19 +108,10 @@
       <file leaf-file-name="piano.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/piano.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-176">
+            <state>
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Xlib.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/X11/Xlib.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="303" column="9" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -124,6 +131,9 @@
     <findStrings>
       <find>color</find>
       <find>SELECT</find>
+      <find>_pixel</find>
+      <find>screen</find>
+      <find>screen_colormap</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,8 +149,8 @@
         <option value="$PROJECT_DIR$/xkeypress.c" />
         <option value="$PROJECT_DIR$/play.h" />
         <option value="$PROJECT_DIR$/play.c" />
-        <option value="$PROJECT_DIR$/xpiano.c" />
         <option value="$PROJECT_DIR$/play2.c" />
+        <option value="$PROJECT_DIR$/xpiano.c" />
       </list>
     </option>
   </component>
@@ -154,8 +164,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="840" />
-    <option name="y" value="25" />
+    <option name="x" value="1121" />
+    <option name="y" value="199" />
     <option name="width" value="1618" />
     <option name="height" value="1292" />
   </component>
@@ -228,10 +238,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21302000" />
+    <option name="totallyTimeSpent" value="33087000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="840" y="25" width="1618" height="1292" extended-state="0" />
+    <frame x="1121" y="199" width="1618" height="1292" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -345,13 +355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/X11/Xlib.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="303" column="9" selection-start-line="303" selection-start-column="4" selection-end-line="303" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xkeypress.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -367,15 +370,6 @@
         <state>
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/piano.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-176">
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -397,22 +391,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xpiano.c">
+    <entry file="file://$PROJECT_DIR$/piano.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="175" column="57" lean-forward="true" selection-start-line="175" selection-start-column="57" selection-end-line="175" selection-end-column="57" />
+        <state>
           <folding>
-            <element signature="e#37#55#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/X11/Xlib.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="414" column="2" selection-start-line="414" selection-start-column="2" selection-end-line="414" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notes.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/play2.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="64" column="14" selection-start-line="64" selection-start-column="14" selection-end-line="64" selection-end-column="14" />
+        <state relative-caret-position="441">
+          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xpiano.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
+          <folding>
+            <element signature="e#37#55#0" expanded="true" />
           </folding>
         </state>
       </provider>
