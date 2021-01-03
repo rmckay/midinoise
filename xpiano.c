@@ -180,7 +180,7 @@ int main ()
 
 
     //XDrawRectangle(dis, win, gctx, 0, 0, 50, 50);
-
+    int loop=0;
     while(1)
     {
         //XDrawPoint(dis, win, gctx, 5, 5);
@@ -242,9 +242,9 @@ int main ()
             }
         }
         //print_playing();
-        draw_xkeyboard(dis, gctx, playing);
+        if (loop%100==0) { draw_xkeyboard(dis, gctx, playing); }
         play_notes(&playing);
-
+        loop++;
     }
 
     return (0);
