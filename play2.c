@@ -75,7 +75,7 @@ int play_notes(char playing[]) {
 
 
   int z= 0;
-  for (z=0;z<2;z++)
+  for (z=0;z<1;z++)
   {
     write(dsp,buf, y);
   }

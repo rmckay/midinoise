@@ -185,8 +185,8 @@ int main ()
     {
         //XDrawPoint(dis, win, gctx, 5, 5);
 //        XNextEvent (dis, &report);
-        for (int n=0;n<50;n++) {
-            if (XCheckMaskEvent(dis, -1, &report)) {
+
+            while (XCheckMaskEvent(dis, -1, &report)) {
                 switch (report.type) {
                     case ButtonRelease: {
                         printf("Button released at %d, %d", report.xbutton.x, report.xbutton.y);
@@ -240,7 +240,7 @@ int main ()
                         break;
                 }
             }
-        }
+
         //print_playing();
         if (loop%100==0) { draw_xkeyboard(dis, gctx, playing); }
         play_notes(&playing);
